@@ -1,0 +1,89 @@
+--Populate shippers table
+INSERT INTO shippers (ShipperName, ShipperEmail)
+VALUES
+  ('Fast & Furious Shipping Co.', 'fastfurious@ff.com'),
+  ('Jolly Roger Shipping', 'jollyroger@roger.com'),
+  ('Purple Parrot Shipping', 'purpleparrot@pp.com'),
+  ('Hippogriff Haulers', 'hippogriffhaulers@hippers.com'),
+  ('Phoenix Express', 'phoenixexpress@pex.com');
+  
+--Populate suppliers table
+INSERT INTO suppliers (ProductID, SupplierName, SupplierEmail)
+VALUES
+	(1, "Asus clothing", "support@asus.com"),
+    (2, "Sup-layers", "sup@layers-com"),
+    (3, "JKEA", "nordic@jkea.com"),
+    (4, "Bookworm", "support@worm.com"),
+    (5, "General store", "general@store.com");
+    
+--Populate categories table
+INSERT INTO categories (CategoryName)
+VALUES
+  ("clothing"),
+  ("furniture"),
+  ("books"),
+  ("movies"),
+  ("electronics"),
+  ("other");
+
+--Populate procuts table
+INSERT INTO products (SupplierID, CategoryID, InStock, UnitPrice)
+VALUES
+  (1, 1, 19, 120),
+  (2, 1, 0, 850),
+  (3, 2, 42, 30),
+  (4, 3, 10, 16),
+  (5, 5, 1738, 69);
+
+--Populate customers table
+INSERT INTO customers (CustName, CustEmail, CustPhone)
+VALUES
+("Sarah Johnson", "sarah.j@gmail.com", "555-1234"),
+("Luke Skywalker", "star.wars@lucas.com", "123-12388994"),
+("Mr. Bombastic", "callme@fantastic.com", "-"),
+("Brian Kottarainen", "BrianK@LUT.fi", "044-5678956"),
+("Tatti Tutterson", "Tattitutti@gmail.com", "897-11144243");
+
+--Populate orders table
+INSERT INTO orders (OrderID) 
+VALUES
+(1),
+(2),
+(3),
+(4),
+(5),
+(6);
+
+
+--Populate order_details table
+INSERT INTO order_details (OrderID, ProductID, CustomerID, OrderDate, Address, isFilled)
+VALUES
+(1, 5, 2, "2023-3-12", "345 main st. NY", 0),
+(2, 3, 1, "2023-3-14", "Leirikatu 1 B LPR", 1),
+(3, 2, 5, "2001-12-3", "Bourbon Street 42 JKL", 0),
+(4, 1, 3, "2023-2-5", "Beatles boulevard 152 HEL", 1),
+(5, 1, 4, "2022-2-30", "Under the Golden gate bridge CAL", 1),
+(6, 2, 4, "2022-2-31", "Under the Golden gate bridge CAL",1);
+
+
+--SELECT *
+--FROM products
+--JOIN categories ON products.CategoryID = categories.CategoryID
+--WHERE categories.CategoryName = 'books';
+
+--SELECT * FROM order_details WHERE isFilled = 0;
+
+--SELECT * FROM products WHERE InStock = 0;
+
+--SELECT * FROM order_details WHERE CustomerID = 4;
+
+
+--SELECT products.ProductID, products.SupplierID, products.InStock, suppliers.SupplierName
+--FROM products
+--INNER JOIN suppliers ON products.SupplierID = suppliers.SupplierID
+--WHERE products.InStock = 0;
+
+--SELECT products.ProductID, suppliers.SupplierName, products.InStock
+--FROM products
+--INNER JOIN suppliers ON products.SupplierID = suppliers.SupplierID
+--WHERE products.InStock = 0;

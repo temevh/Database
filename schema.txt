@@ -1,0 +1,64 @@
+CREATE TABLE shippers (
+  ShipperID integer PRIMARY KEY AUTOINCREMENT,
+  ShipperName varchar(30) NOT NULL,
+  ShipperEmail varchar(30) NOT NULL
+);
+
+CREATE TABLE orders(
+  OrderID integer PRIMARY KEY AUTOINCREMENT
+);
+
+CREATE TABLE order_details (
+  OrderID integer NOT NULL,
+  ProductID integer NOT NULL, 
+  CustomerID integer NOT NULL,
+  OrderDate DATE NOT NULL,
+  Address varchar(45) NOT NULL,
+  isFilled boolean NOT NULL,
+  
+  FOREIGN KEY (OrderID) REFERENCES orders(OrderID),
+  FOREIGN KEY (ProductID) REFERENCES products(ProductID),
+  FOREIGN KEY (CustomerID) REFERENCES customers(CustomerID)
+ );
+ 
+CREATE TABLE products (
+  ProductID integer PRIMARY KEY AUTOINCREMENT,
+  SupplierID integer NOT NULL,
+  CategoryID integer,
+  InStock integer,
+  UnitPrice integer,
+  
+  FOREIGN KEY (SupplierID) REFERENCES suppliers(SupplierID),
+  FOREIGN KEY (CategoryID) REFERENCES categories(CategoryID)
+);
+
+CREATE TABLE suppliers(
+  SupplierID integer PRIMARY KEY AUTOINCREMENT,
+  ProductID integer NOT NULL,
+  SupplierName varchar(30),
+  SupplierEmail varchar(30),
+  
+  FOREIGN KEY (ProductID) REFERENCES products(ProductID)
+);
+
+CREATE TABLE categories (
+  CategoryID integer PRIMARY KEY AUTOINCREMENT,
+  CategoryName char(12)
+);
+
+CREATE TABLE customers (
+  CustomerID integer PRIMARY KEY AUTOINCREMENT,
+  CustName varchar(30),
+  CustEmail varchar(30) NOT NULL,
+  CustPhone varchar(15)
+);
+
+CREATE table productSupply (
+  ProductID integer NOT NULL,
+  SupplierID integer NOT NULL 
+ );
+ 
+ CREATE table productCategory (
+  ProductID integer NOT NULL,
+  CategoryID integer NOT NULL
+ );
