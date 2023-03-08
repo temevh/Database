@@ -1,4 +1,4 @@
-/*
+
 CREATE TABLE shippers (
   ShipperID integer PRIMARY KEY AUTOINCREMENT,
   ShipperName varchar(30) NOT NULL,
@@ -149,30 +149,8 @@ VALUES
 (5, 5),
 (6, 5);
 
-
-/*
-SELECT *
-FROM products
-JOIN categories ON products.CategoryID = categories.CategoryID
-WHERE categories.CategoryName = 'books';
-
-SELECT * FROM order_details WHERE isFilled = 0;
-
-SELECT * FROM products WHERE InStock = 0;
-
-SELECT * FROM order_details WHERE CustomerID = 4;
-
-SELECT products.ProductID, products.SupplierID, products.InStock, suppliers.SupplierName
-FROM products
-INNER JOIN suppliers ON products.SupplierID = suppliers.SupplierID
-WHERE products.InStock = 0;
-
-SELECT products.ProductID, suppliers.SupplierName, products.InStock
-FROM products
-INNER JOIN suppliers ON products.SupplierID = suppliers.SupplierID
-WHERE products.InStock = 0;
-*/
-
+--Retrieve all customers and their info
+SELECT * FROM customers;
 
 --Retrieve all orders that have not been filled yet along with the customer name and email address.
 SELECT order_details.OrderID, customers.CustName, customers.CustEmail
@@ -186,12 +164,12 @@ FROM suppliers
 INNER JOIN productSupply ON suppliers.SupplierID = productSupply.SupplierID
 WHERE productSupply.ProductID = 1;
 
---Retrieve all orders made by the customer with the email address "sarah.j@gmail.com".
+--Retrieve all orders made by the customer with the customerID of 4.
 SELECT order_details.OrderID, products.ProductID, products.UnitPrice, order_details.OrderDate
 FROM order_details
 INNER JOIN customers ON order_details.CustomerID = customers.CustomerID
 INNER JOIN products ON order_details.ProductID = products.ProductID
-WHERE customers.CustEmail = "sarah.j@gmail.com";
+WHERE customers.CustomerID = 4;
 
 --Retrieve the total number of products in stock for each category.
 SELECT categories.CategoryName, SUM(products.InStock) AS TotalStock
