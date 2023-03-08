@@ -1,4 +1,4 @@
-
+/*
 CREATE TABLE shippers (
   ShipperID integer PRIMARY KEY AUTOINCREMENT,
   ShipperName varchar(30) NOT NULL,
@@ -82,10 +82,10 @@ VALUES
 INSERT INTO suppliers (SupplierName, SupplierEmail)
 VALUES
 	("Asus clothing", "support@asus.com"),
-    ("Sup-layers", "sup@layers-com"),
-    ("JKEA", "nordic@jkea.com"),
-    ("Bookworm", "support@worm.com"),
-    ("General store", "general@store.com");
+  ("Sup-layers", "sup@layers-com"),
+  ("JKEA", "nordic@jkea.com"),
+  ("Bookworm", "support@worm.com"),
+  ("General store", "general@store.com");
 
 --Populate procuts table
 INSERT INTO products (CategoryID, InStock, UnitPrice)
@@ -93,7 +93,7 @@ VALUES
   (1, 19, 120),
   (1, 0, 850),
   (2, 42, 30),
-  (3, 10, 16),
+  (3, 120, 16),
   (4, 14, 203),
   (5, 1738, 69);
 
@@ -132,22 +132,24 @@ VALUES
 INSERT INTO order_details (OrderID, ProductID, CustomerID, OrderDate, Address, isFilled)
 VALUES
 (1, 5, 2, "2023-3-12", "345 main st. NY", 0),
-(2, 3, 1, "2023-3-14", "Leirikatu 1 B LPR", 1),
+(2, 3, 1, "2023-3-14", "Leirikatu 1 B LPR", 0),
 (3, 2, 5, "2001-12-3", "Bourbon Street 42 JKL", 0),
 (4, 1, 3, "2023-2-5", "Beatles boulevard 152 HEL", 1),
-(5, 1, 4, "2022-2-30", "Under the Golden gate bridge CAL", 1),
+(5, 1, 4, "2022-2-30", "Under the Golden gate bridge CAL", 0),
 (6, 2, 4, "2022-2-31", "Under the Golden gate bridge CAL",1);
 
 
 --Populate productSupply table
 INSERT INTO productSupply (ProductID, SupplierID)
 VALUES
+(1, 1),
 (1, 2),
 (2, 1),
 (3, 3),
 (4, 4),
 (5, 5),
 (6, 5);
+*/
 
 --Retrieve all customers and their info
 SELECT * FROM customers;
@@ -159,20 +161,20 @@ INNER JOIN customers ON order_details.CustomerID = customers.CustomerID
 WHERE order_details.isFilled = 0;
 
 --Retrieve the name and email of all suppliers who supply product with ProductID=1
-SELECT suppliers.SupplierName, suppliers.SupplierEmail
+SELECT suppliers.SupplierName as "Supplier" , suppliers.SupplierEmail as "Email"
 FROM suppliers
 INNER JOIN productSupply ON suppliers.SupplierID = productSupply.SupplierID
 WHERE productSupply.ProductID = 1;
 
 --Retrieve all orders made by the customer with the customerID of 4.
-SELECT order_details.OrderID, products.ProductID, products.UnitPrice, order_details.OrderDate
+SELECT order_details.OrderID, products.ProductID, products.UnitPrice, order_details.OrderDate, order_details.isFilled
 FROM order_details
 INNER JOIN customers ON order_details.CustomerID = customers.CustomerID
 INNER JOIN products ON order_details.ProductID = products.ProductID
-WHERE customers.CustomerID = 4;
+WHERE customers.CustName = "Brian Kottarainen";
 
 --Retrieve the total number of products in stock for each category.
-SELECT categories.CategoryName, SUM(products.InStock) AS TotalStock
+SELECT categories.CategoryName as "Category", SUM(products.InStock) AS "In stock"
 FROM products
 INNER JOIN categories ON products.CategoryID = categories.CategoryID
 GROUP BY categories.CategoryName;
